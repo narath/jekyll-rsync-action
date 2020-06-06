@@ -1,15 +1,22 @@
 #!/bin/sh -l
 
-# assuming jekyll site source in working directory, build into default _site
+# actions mounts $GITHUB_WORKSPACE, so available in our container...
+BUILD_DIR = $GITHUB_WORKSPACE/_site
+
+# concat destination variables for rsync DEST
+DEST=$DEST_USERNAME@$DEST_HOST/$DEST_PATH 
+
+SSH_KEY_PATH = $HOME/.ssh/id_rsa
+
+# assuming site source present in GITHUB_WORKSPACE, build into default _site
 cd $GITHUB_WORKSPACE
 jekyll build --trace
 
-# assuming private key existsas githubsecret, configure keys
+# assign private key from secrets to SSH_KEY via workflow file
+# use SSH_KEY to configure private key
 mkdir -p $HOME/.ssh
-echo \"${{ secrets.SSH_KEY }}\" > $HOME/.ssh/id_rsa
-chmod 600 $HOME/.ssh/id_rsa
+echo $SSH_KEY > $SSH_KEY_PATH
+chmod 600 $SSH_KEY_PATH
 
-# using secrets, deploy built jekyll site w/ rsync
-rsync -avz -e 'ssh -i $HOME/.ssh/id_rsa -o StrictHostKeyChecking=no' /srv/jekyll/_site ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PATH }}" 
- 
-© 2020 GitHub, Inc.
+# deploy built jekyll site w/ rsync
+rsync -avz -e 'ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no' $BUILD_DIR  $DEST
