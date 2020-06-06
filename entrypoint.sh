@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/sh
 
 # actions mounts $GITHUB_WORKSPACE, so available in our container...
 BUILD_DIR=$GITHUB_WORKSPACE/_site
