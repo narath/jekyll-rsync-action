@@ -16,13 +16,10 @@ jekyll build --trace
 # assign private key from secrets to SSH_KEY via workflow file
 # use SSH_KEY to configure private key
 mkdir -p $HOME/.ssh
-ls -l $HOME/.ssh
 echo $SSH_KEY > $SSH_KEY_PATH
-echo $SSH_KEY_PATH
 ls -l $SSH_KEY_PATH
-chmod 600 $SSH_KEY_PATH
 
 # deploy built jekyll site w/ rsync
 echo "source: $BUILD_DIR"  
 echo "dest: $DEST"
-rsync -avz -e 'ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no' "$BUILD_DIR"  "$DEST"
+rsync -avz "$BUILD_DIR"  "$DEST"
