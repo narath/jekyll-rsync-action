@@ -22,15 +22,14 @@ Usage
 	* `DEST_HOST` - rsync destination host name
 	* `DEST_PATH` - rsync destination path
 4. Add a workflow to your repo (for example, `.github/workflows/jekyll.yml`)
-	```name: Jekyll Build and Deploy
+	```
+name: Jekyll Build and Deploy
 on:
   push:
     branches: [ master ]
-    
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    
     steps:
     - name: checkout
       uses: actions/checkout@v2
