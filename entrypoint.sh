@@ -22,4 +22,4 @@ chmod 600 $SSH_KEY_PATH
 # deploy built jekyll site w/ rsync
 echo "source: $BUILD_DIR"  
 echo "dest: $DEST"
-rsync -avz "$BUILD_DIR"  "$DEST"
+rsync -avz -e "ssh -i \"$SSH_KEY_PATH\" -o StrictHostKeyChecking=no" "$BUILD_DIR"  "$DEST"
