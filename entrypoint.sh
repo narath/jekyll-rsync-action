@@ -19,10 +19,6 @@ mkdir -p $HOME/.ssh
 echo "$SSH_KEY" > $SSH_KEY_PATH
 chmod 600 $SSH_KEY_PATH
 
-tail -n1 $SSH_KEY_PATH
-head -n1 $SSH_KEY_PATH
-ls -l $SSH_KEY_PATH
-
 
 # deploy built jekyll site w/ rsync
 echo "source: $BUILD_DIR"  
