@@ -4,7 +4,7 @@
 BUILD_DIR=$GITHUB_WORKSPACE/_site
 
 # concat destination variables for rsync DEST
-DEST=$DEST_USERNAME@$DEST_HOST/$DEST_PATH 
+DEST=$DEST_USERNAME@$DEST_HOST:$DEST_PATH 
 
 SSH_KEY_PATH=$HOME/.ssh/id_rsa
 
