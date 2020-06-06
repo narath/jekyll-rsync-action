@@ -11,7 +11,6 @@ SSH_KEY_PATH=$HOME/.ssh/id_rsa
 # assuming site source present in GITHUB_WORKSPACE, build into default _site
 chmod -R a+w $GITHUB_WORKSPACE
 cd $GITHUB_WORKSPACE
-which jekyll
 jekyll build --trace
 
 # assign private key from secrets to SSH_KEY via workflow file
@@ -21,4 +20,6 @@ echo $SSH_KEY > $SSH_KEY_PATH
 chmod 600 $SSH_KEY_PATH
 
 # deploy built jekyll site w/ rsync
-rsync -avz -e 'ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no' $BUILD_DIR  $DEST
+echo "source: $BUILD_DIR"  
+echo "dest: $DEST"
+rsync -avz -e 'ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no' "$BUILD_DIR"  "$DEST"
