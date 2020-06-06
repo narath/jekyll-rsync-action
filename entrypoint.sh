@@ -1,4 +1,5 @@
 #!/bin/sh -l
+set -e
 
 # actions mounts $GITHUB_WORKSPACE, so available in our container...
 BUILD_DIR=$GITHUB_WORKSPACE/_site
@@ -9,7 +10,9 @@ DEST=$DEST_USERNAME@$DEST_HOST/$DEST_PATH
 SSH_KEY_PATH=$HOME/.ssh/id_rsa
 
 # assuming site source present in GITHUB_WORKSPACE, build into default _site
+chmod -R a+w $GITHUB_WORKSPACE
 cd $GITHUB_WORKSPACE
+which jekyll
 jekyll build --trace
 
 # assign private key from secrets to SSH_KEY via workflow file
