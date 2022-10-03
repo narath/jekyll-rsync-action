@@ -11,7 +11,7 @@ SSH_KEY_PATH=$HOME/.ssh/id_rsa
 # assuming site source present in GITHUB_WORKSPACE, build into default _site
 chmod -R a+w $GITHUB_WORKSPACE
 cd $GITHUB_WORKSPACE
-jekyll build --trace
+NODE_ENV=production JEKYLL_ENV=production jekyll build --trace
 
 # assign private key from secrets to SSH_KEY via workflow file
 # use SSH_KEY to configure private key
